@@ -1,0 +1,2717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍪 CookieCraft - Freshly Baked Cookies Made With Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS VARIABLES & THEME SETUP
+           ============================================ */
+        :root {
+            --cream: #FFF8F0;
+            --chocolate: #5C3A21;
+            --caramel: #D49A4A;
+            --beige: #F7E7CE;
+            --white: #FFFFFF;
+            --gold: #FFD700;
+            --soft-orange: #FFB84D;
+            --dark-bg: #1a1a1a;
+            --dark-card: #2a2a2a;
+            --text-dark: #333;
+            --text-light: #666;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark-mode {
+            --cream: #1a1a1a;
+            --beige: #2a2a2a;
+            --text-dark: #f0f0f0;
+            --text-light: #b0b0b0;
+            --white: #2a2a2a;
+        }
+
+        /* ============================================
+           GLOBAL STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           NAVIGATION BAR
+           ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0.7rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode nav {
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        .nav-logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--chocolate);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.8rem;      /* Reduced from default */
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--caramel);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--caramel);
+            animation: slideIn 0.3s ease;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: var(--chocolate);
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--caramel);
+            color: var(--white);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--chocolate);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 120px 2rem 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--beige) 100%);
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero::before {
+            content: '🍪';
+            position: absolute;
+            font-size: 10rem;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+            top: 10%;
+            left: 5%;
+        }
+
+        .hero::after {
+            content: '🍪';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 2;
+            animation: slideUp 0.8s ease;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--chocolate);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--caramel) 0%, var(--soft-orange) 100%);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(212, 154, 74, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 154, 74, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--chocolate);
+            border: 2px solid var(--chocolate);
+        }
+
+        .btn-secondary:hover {
+            background: var(--chocolate);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            animation: slideInRight 0.8s ease;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* ============================================
+           SECTIONS STYLING
+           ============================================ */
+        section {
+            padding: 80px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--chocolate);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--caramel);
+            margin: 1rem auto 0;
+        }
+
+        /* ============================================
+           ABOUT US SECTION
+           ============================================ */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--chocolate);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--caramel);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ============================================
+           PRODUCTS SECTION
+           ============================================ */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--caramel);
+            background: transparent;
+            color: var(--chocolate);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--caramel);
+            color: var(--white);
+        }
+
+        .filter-btn:hover {
+            background: var(--caramel);
+            color: var(--white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            min-height: 3.4rem;   /* Space for approximately 2 lines */
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            color: var(--text-light);
+            min-height: 48px;        /* Keeps descriptions aligned */
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .product-rating {
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .product-footer {
+            margin-top: auto;        /* Pushes footer to the bottom */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: var(--caramel);
+            font-weight: 700;
+        }
+
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 0.8rem;
+        }
+
+        /* ============================================
+           WHY CHOOSE US SECTION
+           ============================================ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--chocolate);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+        }
+
+        /* ============================================
+           TESTIMONIALS SECTION
+           ============================================ */
+        .testimonials-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            display: none;
+        }
+
+        .testimonial-card.active {
+            display: block;
+        }
+
+        .testimonial-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-text {
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-rating {
+            color: var(--gold);
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--caramel);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: var(--chocolate);
+            transform: scale(1.1);
+        }
+
+        /* ============================================
+           GALLERY SECTION
+           ============================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(92, 58, 33, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: var(--white);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* ============================================
+           FAQ SECTION
+           ============================================ */
+        .faq-item {
+            background: var(--white);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--cream) 100%);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--chocolate);
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, var(--caramel) 0%, var(--soft-orange) 100%);
+            color: var(--white);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 1.5rem;
+            color: var(--text-light);
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item h3 {
+            color: var(--chocolate);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: var(--text-light);
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--chocolate);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--beige);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--caramel);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--chocolate);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--beige);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--caramel);
+        }
+
+        .newsletter-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .newsletter-input button {
+            padding: 10px 20px;
+            background: var(--caramel);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-input button:hover {
+            background: var(--soft-orange);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--caramel);
+            color: var(--white);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--soft-orange);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-to-top {
+            width: 50px;
+            height: 50px;
+            background: var(--caramel);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            background: var(--soft-orange);
+            transform: translateY(-3px);
+        }
+
+        /* ============================================
+           LANGUAGE SELECTOR
+           ============================================ */
+        .language-selector {
+            position: relative;
+            margin-left: 1rem;
+        }
+
+        .lang-toggle {
+            background: var(--caramel);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .lang-toggle:hover {
+            background: var(--soft-orange);
+            transform: scale(1.05);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow-hover);
+            display: none;
+            min-width: 150px;
+            z-index: 1001;
+            overflow: hidden;
+        }
+
+        .lang-dropdown.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .lang-option {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .lang-option:hover,
+        .lang-option.selected {
+            background: var(--caramel);
+            color: var(--white);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           CART SIDEBAR
+           ============================================ */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--caramel) 0%, var(--soft-orange) 100%);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--beige);
+            align-items: start;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--caramel);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border: 1px solid var(--caramel);
+            background: transparent;
+            color: var(--caramel);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--caramel);
+            color: var(--white);
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid var(--beige);
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 2px solid var(--beige);
+            background: var(--beige);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--chocolate);
+            font-size: 1.2rem;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cart-actions button {
+            flex: 1;
+        }
+
+        .empty-cart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-light);
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .theme-toggle {
+                margin-left: auto;
+            }
+
+            .nav-links.active {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 248, 240, 0.95);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                display: flex;
+                box-shadow: var(--shadow);
+            }
+
+            .hero {
+                flex-direction: column;
+                padding: 100px 1rem 60px;
+                text-align: center;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 50px 1rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .product-card {
+                min-height: 300px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ====== NAVIGATION ====== -->
+    <nav>
+        <div class="nav-logo">🍪 CookieCraft</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About Us</a></li>
+            <li><a href="#products" class="nav-link">Products</a></li>
+            <li><a href="#features" class="nav-link">Why Us</a></li>
+            <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+            <li><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#faq" class="nav-link">FAQ</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="cart-icon" id="cartIcon">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+            
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <button class="lang-toggle" id="langToggle">🌐 EN</button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-option selected" data-lang="en">🇬🇧 English</button>
+                    <button class="lang-option" data-lang="ms">🇲🇾 Malay</button>
+                    <button class="lang-option" data-lang="ta">🇮🇳 Tamil</button>
+                    <button class="lang-option" data-lang="zh">🇨🇳 Chinese</button>
+                </div>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ====== CART SIDEBAR ====== -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            Shopping Cart
+            <button class="cart-close" id="cartClose">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">RM 0.00</span>
+            </div>
+            <div class="cart-actions">
+                <button class="btn btn-secondary" id="clearCartBtn" style="display: none;">Clear Cart</button>
+                <button class="btn btn-primary" id="checkoutBtn" style="display: none;">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== HERO SECTION ====== -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Freshly Baked Cookies Made With Love</h1>
+            <p>Experience the perfect blend of premium ingredients and expert craftsmanship. Every cookie is handmade with passion and dedication to quality.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Shop Now</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&h=500&fit=crop" alt="Delicious Cookies">
+        </div>
+    </section>
+
+    <!-- ====== ABOUT US SECTION ====== -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>About Our Cookie Story</h2>
+            <p>Welcome to CookieCraft, where tradition meets innovation. Since 2015, we've been dedicated to creating the most delicious and premium cookies using only the finest ingredients.</p>
+            <p>Our mission is simple: to bring joy to every bite. Every cookie is handcrafted with love and baked fresh daily in our artisan bakery.</p>
+            <p>We believe in quality over quantity, sustainability, and treating our customers like family. Join thousands of satisfied cookie lovers who trust CookieCraft for their special moments.</p>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="5000">0</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="25">0</div>
+                    <div class="stat-label">Cookie Flavors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="9">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="10000">0</div>
+                    <div class="stat-label">Orders Delivered</div>
+                </div>
+            </div>
+        </div>
+        <div class="about-image">
+            <img src="https://media.istockphoto.com/id/2204354530/photo/pastry-chef-arranging-christmas-cookies-in-bakery-display-case.jpg?s=612x612&w=0&k=20&c=4sXBjcVISb4t4wh-BsdjqghSaqlPz6RQ_ypLMkdzJoE=" alt="Bakery">
+        </div>
+    </section>
+
+    <!-- ====== PRODUCTS SECTION ====== -->
+    <section id="products">
+        <h2 class="section-title">Our Delicious Products</h2>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="bestseller">Best Sellers</button>
+            <button class="filter-btn" data-filter="chocolate">Chocolate</button>
+            <button class="filter-btn" data-filter="classic">Classic</button>
+            <button class="filter-btn" data-filter="premium">Premium</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- ====== WHY CHOOSE US SECTION ====== -->
+    <section id="features">
+        <h2 class="section-title">Why Choose CookieCraft</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Premium Quality</h3>
+                <p>Only the finest ingredients sourced from trusted suppliers to guarantee exceptional taste.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🍳</div>
+                <h3>Handmade Daily</h3>
+                <p>Every cookie is handcrafted by our skilled artisan bakers using traditional methods.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>Fast Delivery</h3>
+                <p>Get your freshly baked cookies delivered to your doorstep within 24 hours.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Affordable Prices</h3>
+                <p>Premium quality at reasonable prices because everyone deserves great cookies.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">❤️</div>
+                <h3>100% Satisfaction</h3>
+                <p>Your satisfaction is guaranteed. If you're not happy, we'll make it right.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <h3>Eco-Friendly</h3>
+                <p>Sustainable packaging and ethical sourcing for a better tomorrow.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== TESTIMONIALS SECTION ====== -->
+    <section id="testimonials">
+        <h2 class="section-title">What Our Customers Say</h2>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-card active">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="Sarah" class="testimonial-image">
+                <p class="testimonial-text">"These cookies are absolutely amazing! The chocolate chip cookies are my favorite. I've ordered multiple times and never been disappointed!"</p>
+                <p class="testimonial-name">Sarah Johnson</p>
+                <p class="testimonial-rating">⭐⭐⭐⭐⭐</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Mike" class="testimonial-image">
+                <p class="testimonial-text">"Best cookies I've ever had! The quality is incredible and the delivery was super fast. Highly recommend CookieCraft to everyone!"</p>
+                <p class="testimonial-name">Mike Chen</p>
+                <p class="testimonial-rating">⭐⭐⭐⭐⭐</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Emily" class="testimonial-image">
+                <p class="testimonial-text">"Perfect gift for my mom's birthday! She loved them. The salted caramel cookies were her favorite. Thank you for the beautiful packaging!"</p>
+                <p class="testimonial-name">Emily Davis</p>
+                <p class="testimonial-rating">⭐⭐⭐⭐⭐</p>
+            </div>
+        </div>
+
+        <div class="carousel-controls">
+            <button class="carousel-btn" id="prevTestimonial">❮</button>
+            <button class="carousel-btn" id="nextTestimonial">❯</button>
+        </div>
+    </section>
+
+    <!-- ====== GALLERY SECTION ====== -->
+    <section id="gallery">
+        <h2 class="section-title">Cookie Gallery</h2>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=300&fit=crop" alt="Chocolate Cookies">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Chocolate Delights</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://bakingamoment.com/wp-content/uploads/2023/12/IMG_0082-red-velvet-chocolate-chip-cookies.jpg" alt="Classic Cookies">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Classic Selection</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://evergreenkitchen.ca/wp-content/uploads/2024/04/Single-Serve-Oatmeal-Cookie-Evergreen-Kitchen-1.jpg" alt="Premium Cookies">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Premium Collection</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://erictriesit.com/wp-content/uploads/2024/12/Brown-butter-matcha-cookies-square-1.jpg" alt="Specialty Cookies">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Specialty Items</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://thenovicechefblog.com/wp-content/uploads/2023/11/Chewy-Peanut-Butter-Cookies-Image.jpeg" alt="Artisan Cookies">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Artisan Creations</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,w_730/k%2FPhoto%2FRecipes%2F2023-11-the-life-of-the-party-rainbow-sprinkle-cookies%2Fthe-life-of-the-party-rainbow-sprinkle-cookies-134" alt="Holiday Cookies">
+                <div class="gallery-overlay">
+                    <p class="gallery-text">Holiday Specials</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FAQ SECTION ====== -->
+    <section id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How long do your cookies stay fresh?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Our cookies stay fresh for up to 7 days when stored in an airtight container at room temperature. For extended freshness, you can freeze them for up to 2 weeks.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Do you offer gluten-free or vegan options?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes! We offer a selection of gluten-free and vegan cookies. Please check our products page or contact us for our special dietary options.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What's your return policy?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>We guarantee 100% satisfaction. If you're not happy with your order, we'll replace it or offer a full refund within 30 days of purchase.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Do you deliver internationally?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Currently, we deliver within the local area and select nearby regions. For international inquiries, please contact us directly for special arrangements.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I customize my cookie order?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely! We love customization. Contact us with your special requests for personalized flavors, packaging, or bulk orders.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What payment methods do you accept?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>We accept all major credit cards, digital wallets, and bank transfers. For security, all transactions are encrypted and processed securely.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CONTACT SECTION ====== -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📍 Location</h3>
+                    <p>
+                        88 Jalan Kuki Delima
+                        <br>
+                        Taman Bukit Permai, 56000 Kuala Lumpur
+                        <br>
+                        Malaysia
+                    </p>
+                </div>
+                <div class="contact-item">
+                    <h3>📞 Phone</h3>
+                    <p>
+                        +60 17-456 7890
+                        <br>
+                        Mon-Fri: 9AM - 6PM
+                        <br>
+                        Sat: 10AM - 4PM
+                    </p>
+                </div>
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p>
+                        hello@cookiecraft.com
+                        <br>
+                        support@cookiecraft.com
+                    </p>
+                </div>
+                <div class="contact-item">
+                    <h3>⏰ Hours</h3>
+                    <p>
+                        Monday - Friday: 9AM - 6PM
+                        <br>
+                        Saturday: 10AM - 4PM
+                        <br>
+                        Sunday: Closed
+                    </p>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-message" id="formMessage"></div>
+                
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🍪 CookieCraft</h3>
+                <p>Premium handmade cookies baked with love daily.</p>
+                <div class="social-links">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="Twitter">𝕏</a>
+                    <a href="#" title="Pinterest">P</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get updates on new flavors and special offers!</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Your email" id="newsletterEmail">
+                    <button type="submit">Subscribe</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 CookieCraft. All rights reserved. 🍪</p>
+            <button class="back-to-top" id="backToTop">↑</button>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // TRANSLATIONS
+        // ============================================
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_about: "About Us",
+                nav_products: "Products",
+                nav_features: "Why Us",
+                nav_testimonials: "Testimonials",
+                nav_gallery: "Gallery",
+                nav_faq: "FAQ",
+                nav_contact: "Contact",
+                hero_title: "Freshly Baked Cookies Made With Love",
+                hero_subtitle: "Experience the perfect blend of premium ingredients and expert craftsmanship. Every cookie is handmade with passion and dedication to quality.",
+                btn_shop: "Shop Now",
+                btn_learn: "Learn More",
+                about_title: "About Our Cookie Story",
+                about_text1: "Welcome to CookieCraft, where tradition meets innovation. Since 2015, we've been dedicated to creating the most delicious and premium cookies using only the finest ingredients.",
+                about_text2: "Our mission is simple: to bring joy to every bite. Every cookie is handcrafted with love and baked fresh daily in our artisan bakery.",
+                about_text3: "We believe in quality over quantity, sustainability, and treating our customers like family. Join thousands of satisfied cookie lovers who trust CookieCraft for their special moments.",
+                stat_customers: "Happy Customers",
+                stat_flavors: "Cookie Flavors",
+                stat_experience: "Years Experience",
+                stat_orders: "Orders Delivered",
+                products_title: "Our Delicious Products",
+                filter_all: "All",
+                filter_bestseller: "Best Sellers",
+                filter_chocolate: "Chocolate",
+                filter_classic: "Classic",
+                filter_premium: "Premium",
+                features_title: "Why Choose CookieCraft",
+                feature_quality: "Premium Quality",
+                feature_quality_desc: "Only the finest ingredients sourced from trusted suppliers to guarantee exceptional taste.",
+                feature_handmade: "Handmade Daily",
+                feature_handmade_desc: "Every cookie is handcrafted by our skilled artisan bakers using traditional methods.",
+                feature_delivery: "Fast Delivery",
+                feature_delivery_desc: "Get your freshly baked cookies delivered to your doorstep within 24 hours.",
+                feature_price: "Affordable Prices",
+                feature_price_desc: "Premium quality at reasonable prices because everyone deserves great cookies.",
+                feature_satisfaction: "100% Satisfaction",
+                feature_satisfaction_desc: "Your satisfaction is guaranteed. If you're not happy, we'll make it right.",
+                feature_eco: "Eco-Friendly",
+                feature_eco_desc: "Sustainable packaging and ethical sourcing for a better tomorrow.",
+                testimonials_title: "What Our Customers Say",
+                gallery_title: "Cookie Gallery",
+                faq_title: "Frequently Asked Questions",
+                contact_title: "Get In Touch",
+                contact_location: "Location",
+                contact_address: "123 Bakery Street\nSweet City, SC 12345\nUnited States",
+                contact_phone: "Phone",
+                contact_phone_hours: "+1 (555) 123-4567\nMon-Fri: 9AM - 6PM\nSat: 10AM - 4PM",
+                contact_email: "Email",
+                contact_email_list: "hello@cookiecraft.com\nsupport@cookiecraft.com",
+                contact_hours: "Hours",
+                contact_hours_list: "Monday - Friday: 9AM - 6PM\nSaturday: 10AM - 4PM\nSunday: Closed",
+                form_name: "Your Name",
+                form_email: "Your Email",
+                form_phone: "Phone Number",
+                form_message: "Message",
+                btn_send: "Send Message",
+                faq_fresh: "How long do your cookies stay fresh?",
+                faq_fresh_ans: "Our cookies stay fresh for up to 7 days when stored in an airtight container at room temperature. For extended freshness, you can freeze them for up to 2 weeks.",
+                faq_dietary: "Do you offer gluten-free or vegan options?",
+                faq_dietary_ans: "Yes! We offer a selection of gluten-free and vegan cookies. Please check our products page or contact us for our special dietary options.",
+                faq_return: "What's your return policy?",
+                faq_return_ans: "We guarantee 100% satisfaction. If you're not happy with your order, we'll replace it or offer a full refund within 30 days of purchase.",
+                faq_international: "Do you deliver internationally?",
+                faq_international_ans: "Currently, we deliver within the local area and select nearby regions. For international inquiries, please contact us directly for special arrangements.",
+                faq_customize: "Can I customize my cookie order?",
+                faq_customize_ans: "Absolutely! We love customization. Contact us with your special requests for personalized flavors, packaging, or bulk orders.",
+                faq_payment: "What payment methods do you accept?",
+                faq_payment_ans: "We accept all major credit cards, digital wallets, and bank transfers. For security, all transactions are encrypted and processed securely.",
+                cart_title: "Shopping Cart",
+                cart_empty: "Your cart is empty",
+                cart_clear: "Clear Cart",
+                cart_checkout: "Checkout",
+                footer_newsletter: "Subscribe to get updates on new flavors and special offers!",
+                footer_subscribe: "Subscribe",
+                footer_copyright: "© 2024 CookieCraft. All rights reserved. 🍪",
+                product_add: "Add to Cart",
+                product_chocolate: "Classic cookie with premium chocolate chips",
+                product_velvet: "Elegant red velvet with cream cheese flavor",
+                product_matcha: "Green tea matcha with subtle earthy taste",
+                product_double: "Intense chocolate flavor with cocoa",
+                product_oatmeal: "Wholesome oats with plump raisins",
+                product_peanut: "Smooth peanut butter goodness",
+                product_caramel: "Sweet caramel with sea salt finish",
+                product_rainbow: "Colorful sprinkles with vanilla joy",
+                footer_quick: "Quick Links",
+                footer_service: "Customer Service",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms & Conditions",
+                footer_shipping: "Shipping Info",
+                form_required: "Please fill in all required fields.",
+                form_invalid_email: "Please enter a valid email address.",
+                form_success: "Thank you for your message! We'll get back to you soon.",
+                alert_subscribe: "Thank you for subscribing!",
+                alert_subscribe_error: "Please enter a valid email address.",
+                alert_checkout: "Thank you for your order! This is a demo. In a real application, you would be redirected to payment.",
+                alert_clear_cart: "Are you sure you want to clear your cart?"
+            },
+            ms: {
+                nav_home: "Beranda",
+                nav_about: "Tentang Kami",
+                nav_products: "Produk",
+                nav_features: "Mengapa Kami",
+                nav_testimonials: "Testimonial",
+                nav_gallery: "Galeri",
+                nav_faq: "Soalan Lazim",
+                nav_contact: "Hubungi Kami",
+                hero_title: "Kuki Segar Dipanggang Dengan Penuh Kasih Sayang",
+                hero_subtitle: "Rasai perpaduan sempurna bahan-bahan premium dan kemahiran pengrajin. Setiap kuki dibuat dengan tangan dengan gairah dan dedikasi kepada kualiti.",
+                btn_shop: "Beli Sekarang",
+                btn_learn: "Pelajari Lagi",
+                about_title: "Tentang Cerita Kuki Kami",
+                about_text1: "Selamat datang ke CookieCraft, di mana tradisi bertemu inovasi. Sejak 2015, kami telah berdedikasi untuk mencipta kuki paling sedap dan premium menggunakan hanya bahan-bahan terbaik.",
+                about_text2: "Misi kami sangat mudah: membawa kegembiraan ke setiap gigitan. Setiap kuki dibuat dengan tangan dengan penuh kasih sayang dan dipanggang segar setiap hari di taman bakeri kami.",
+                about_text3: "Kami percaya pada kualiti berbanding kuantiti, kemampanan, dan merawat pelanggan kami seperti keluarga. Sertai ribuan pencinta kuki yang puas yang mempercayai CookieCraft untuk momen istimewa mereka.",
+                stat_customers: "Pelanggan Bahagia",
+                stat_flavors: "Perisa Kuki",
+                stat_experience: "Tahun Pengalaman",
+                stat_orders: "Pesanan Dihantar",
+                products_title: "Produk Lazat Kami",
+                filter_all: "Semua",
+                filter_bestseller: "Penjual Terbaik",
+                filter_chocolate: "Coklat",
+                filter_classic: "Klasik",
+                filter_premium: "Premium",
+                features_title: "Mengapa Memilih CookieCraft",
+                feature_quality: "Kualiti Premium",
+                feature_quality_desc: "Hanya bahan-bahan terbaik bersumber daripada pembekal yang dipercayai untuk menjamin rasa yang luar biasa.",
+                feature_handmade: "Dibuat Tangan Setiap Hari",
+                feature_handmade_desc: "Setiap kuki dibuat dengan tangan oleh tukang bakeri pengrajin terampil kami menggunakan kaedah tradisional.",
+                feature_delivery: "Penghantaran Cepat",
+                feature_delivery_desc: "Dapatkan kuki segar anda yang baru dipanggang dihantar ke pintu anda dalam 24 jam.",
+                feature_price: "Harga Mampu Milik",
+                feature_price_desc: "Kualiti premium pada harga yang munasabah kerana semua orang layak mendapat kuki yang hebat.",
+                feature_satisfaction: "Kepuasan 100%",
+                feature_satisfaction_desc: "Kepuasan anda dijamin. Jika anda tidak puas, kami akan membuatnya betul.",
+                feature_eco: "Mesra Alam",
+                feature_eco_desc: "Pembungkusan berkelanjutan dan perolehan etis untuk masa depan yang lebih baik.",
+                testimonials_title: "Apa Kata Pelanggan Kami",
+                gallery_title: "Galeri Kuki",
+                faq_title: "Soalan yang Sering Diajukan",
+                contact_title: "Hubungi Kami",
+                contact_location: "Lokasi",
+                contact_address: "123 Jalan Bakeri\nBandar Manis, SM 12345\nMalaysia",
+                contact_phone: "Telefon",
+                contact_phone_hours: "+60 1-2345-6789\nIsnin-Jumaat: 9AM - 6PM\nSabtu: 10AM - 4PM",
+                contact_email: "Emel",
+                contact_email_list: "hello@cookiecraft.com\nsupport@cookiecraft.com",
+                contact_hours: "Waktu Operasi",
+                contact_hours_list: "Isnin - Jumaat: 9AM - 6PM\nSabtu: 10AM - 4PM\nAhad: Tutup",
+                form_name: "Nama Anda",
+                form_email: "Emel Anda",
+                form_phone: "Nombor Telefon",
+                form_message: "Pesanan",
+                btn_send: "Hantar Mesej",
+                faq_fresh: "Berapa lama kuki anda kekal segar?",
+                faq_fresh_ans: "Kuki kami kekal segar selama 7 hari apabila disimpan dalam bekas kedap udara di suhu bilik. Untuk kesegaran yang lebih lama, anda boleh membekukannya selama dua minggu.",
+                faq_dietary: "Adakah anda menawarkan pilihan bebas gluten atau vegan?",
+                faq_dietary_ans: "Ya! Kami menawarkan pilihan kuki bebas gluten dan vegan. Sila periksa halaman produk kami atau hubungi kami untuk pilihan diet khas kami.",
+                faq_return: "Apakah dasar pulangan anda?",
+                faq_return_ans: "Kami menjamin kepuasan 100%. Jika anda tidak puas dengan pesanan anda, kami akan menggantinya atau menawarkan bayaran balik penuh dalam 30 hari selepas pembelian.",
+                faq_international: "Adakah anda menghantar ke luar negara?",
+                faq_international_ans: "Pada masa ini, kami menyampaikan dalam kawasan tempatan dan wilayah berdekatan yang dipilih. Untuk pertanyaan antarabangsa, sila hubungi kami terus untuk pengaturan khas.",
+                faq_customize: "Bolehkah saya menyesuaikan pesanan kuki saya?",
+                faq_customize_ans: "Tentu saja! Kami suka penyesuaian. Hubungi kami dengan permintaan khas anda untuk perisa yang dipersonalisasi, pembungkusan, atau pesanan pukal.",
+                faq_payment: "Kaedah pembayaran apa yang anda terima?",
+                faq_payment_ans: "Kami menerima semua kad kredit utama, dompet digital, dan pindahan bank. Untuk keselamatan, semua urus niaga disulitkan dan diproses dengan selamat.",
+                cart_title: "Keranjang Belanja",
+                cart_empty: "Keranjang anda kosong",
+                cart_clear: "Kosongkan Keranjang",
+                cart_checkout: "Pembayaran",
+                footer_newsletter: "Langgan untuk mendapatkan kemas kini tentang perisa baru dan tawaran istimewa!",
+                footer_subscribe: "Langgan",
+                footer_copyright: "© 2024 CookieCraft. Semua hak dilindungi. 🍪",
+                product_add: "Tambah ke Keranjang",
+                product_chocolate: "Kuki klasik dengan kerepek coklat premium",
+                product_velvet: "Red velvet elegan dengan perasa krim keju",
+                product_matcha: "Matcha teh hijau dengan rasa tanah yang halus",
+                product_double: "Rasa coklat yang kuat dengan kakao",
+                product_oatmeal: "Gandum utuh dengan kismis berbuah",
+                product_peanut: "Kebaikan mentega kacang yang lancar",
+                product_caramel: "Karamel manis dengan penamat garam laut",
+                product_rainbow: "Warna-warni dengan kegembiraan vanila",
+                footer_quick: "Pautan Cepat",
+                footer_service: "Perkhidmatan Pelanggan",
+                footer_privacy: "Dasar Privasi",
+                footer_terms: "Terma dan Syarat",
+                footer_shipping: "Maklumat Penghantaran",
+                form_required: "Sila isi semua medan yang diperlukan.",
+                form_invalid_email: "Sila masukkan alamat emel yang sah.",
+                form_success: "Terima kasih atas mesej anda! Kami akan menghubungi anda segera.",
+                alert_subscribe: "Terima kasih kerana melanggan!",
+                alert_subscribe_error: "Sila masukkan alamat emel yang sah.",
+                alert_checkout: "Terima kasih atas pesanan anda! Ini adalah demo. Dalam aplikasi sebenar, anda akan dialihkan ke pembayaran.",
+                alert_clear_cart: "Adakah anda pasti ingin mengosongkan keranjang anda?"
+            },
+            ta: {
+                nav_home: "முகப்பு",
+                nav_about: "எங்களை பற்றி",
+                nav_products: "பொருட்கள்",
+                nav_features: "ஏன் நம்மை தேர்ந்தெடுக்கவேண்டும்",
+                nav_testimonials: "பாராட்டுக்கள்",
+                nav_gallery: "திரை",
+                nav_faq: "அடிக்கடி கேட்கப்படும் கேள்விகள்",
+                nav_contact: "தொடர்பு",
+                hero_title: "விறுவிறுப்பாக구운 குக்கीகள் முழு அன்புடன் செய்யப்பட்டவை",
+                hero_subtitle: "பிரீமிய மூலப்பொருட்கள் மற்றும் நிபுணர் கைத்திறமையின் சிறந்த கலவையை அனுபவ செய்யுங்கள். ஒவ்வொரு குக்கியும் கெட்ட உணர்வு மற்றும் தரத்திற்கான அர்ப்பணிப்புடன் செய்யப்படுகிறது.",
+                btn_shop: "இப்போது வாங்கவும்",
+                btn_learn: "மேலும் அறிக",
+                about_title: "எங்கள் குக்கி கதை பற்றி",
+                about_text1: "CookieCraft க்கு வரவேற்கிறோம், இங்கு ঐতிহ்யம் புதுமையை சந்திக்கிறது. 2015 இல் இருந்து, நாங்கள் சிறந்த மூலப்பொருட்களை மட்டுமே பயன்படுத்தி மிகவும்맛있는மற்றும் பிரீமிய குக்கீகளை உருவாக்க அர்ப்பணிக்கப்பட்டுள்ளோம்.",
+                about_text2: "எங்கள் விஷ்ய வெறுமனே எளிது: ஒவ்வொரு கடிக்கும் மகிழ்ச்சிகளை கொண்டு வர. ஒவ்வொரு குக்கியும் கையால் செய்யப்பட்டு எங்கள் கலைஞர் பேக்கரியில் தினமும் புதிதாக구워ஜாகிறது.",
+                about_text3: "மாவு விட்டு தரத்தை நம்பி, நிலையுணர்வு மற்றும் எங்கள் வாடிக்கையாளர்களை குடும்பத்தைபோல் கருதுகிறோம். CookieCraft ஐ நம்பும் ஆயிரக்கணக்கான திருப்தியான குக்கி பிரியர்களுக்கு சேரவும்.",
+                stat_customers: "மகிழ்ச்சியான வாடிக்கையாளர்கள்",
+                stat_flavors: "குக்கி சுவைகள்",
+                stat_experience: "வருட அனுபவம்",
+                stat_orders: "ஆர்டர்கள் வழங்கப்பட்டுள்ளன",
+                products_title: "எங்கள் சுவையான பொருட்கள்",
+                filter_all: "அனைத்து",
+                filter_bestseller: "சிறந்த விற்பனை",
+                filter_chocolate: "சாக்லேட்",
+                filter_classic: "கிளாசிக்",
+                filter_premium: "பிரீமியம்",
+                features_title: "ஏன் CookieCraft தேர்ந்தெடுக்க வேண்டும்",
+                feature_quality: "பிரீமிய தரம்",
+                feature_quality_desc: "விதிவிலக்கான சுவை உறுதிப்படுத்த நம்பகமான சப்ளையர்களிலிருந்து பெறப்பட்ட சிறந்த மூலப்பொருட்கள் மட்டுமே.",
+                feature_handmade: "தினமும் கையால் செய்யப்பட்ட",
+                feature_handmade_desc: "ஒவ்வொரு குக்கியும் பாரம்பரிய முறைகளைப் பயன்படுத்தி நம்မிக்கைமான பேக்கர்களால் கையால் செய்யப்படுகிறது.",
+                feature_delivery: "வேகமான டெலிவரி",
+                feature_delivery_desc: "24 மணிநேரத்தில் உங்கள் வீட்டின் கதவுக்கு புதிய குக்கீகளைப் பெறுங்கள்.",
+                feature_price: "மலிவான விலைகள்",
+                feature_price_desc: "பிரீமிய தரம் சிறந்த விலையில் ஏனென்றால் அனைவரும் சிறந்த குக்கி தகுதி வைத்துள்ளனர்.",
+                feature_satisfaction: "100% திருப்தி",
+                feature_satisfaction_desc: "உங்கள் திருப்தி உறுதிப்பட்டுள்ளது. நீங்கள் மகிழ்ச்சி இல்லையென்றால், நாங்கள் சரிசெய்வோம்.",
+                feature_eco: "சூழ்நிலை நட்ட",
+                feature_eco_desc: "சிறந்த உலகத்திற்கு நிலைத்தவ பொருட்கள் மற்றும் ஒழுக்கமான பெறுதல்.",
+                testimonials_title: "எங்கள் வாடிக்கையாளர்கள் என்ன சொல்கிறார்கள்",
+                gallery_title: "குக்கி திரை",
+                faq_title: "அடிக்கடி கேட்கப்படும் கேள்விகள்",
+                contact_title: "எங்களைத் தொடர்பு கொள்ளுங்கள்",
+                contact_location: "இருப்பிடம்",
+                contact_address: "123 பேக்கரி தெரு\nMalay City, SC 12345\nஇந்தியா",
+                contact_phone: "தொலைபேசி",
+                contact_phone_hours: "+91 91-234-56789\nசனி-வெள்ளி: 9AM - 6PM\nசனி: 10AM - 4PM",
+                contact_email: "மின்னஞ்சல்",
+                contact_email_list: "hello@cookiecraft.com\nsupport@cookiecraft.com",
+                contact_hours: "நேரங்கள்",
+                contact_hours_list: "திங்கள் - வெள்ளி: 9AM - 6PM\nசனி: 10AM - 4PM\nஞாயிறு: மூடப்பட்டுள்ளது",
+                form_name: "உங்கள் பெயர்",
+                form_email: "உங்கள் மின்னஞ்சல்",
+                form_phone: "தொலைபேசி எண்",
+                form_message: "செய்தி",
+                btn_send: "செய்தி அனுப்ப",
+                faq_fresh: "உங்கள் குக்கீகள் எவ்வளவு புதியதாக இருக்கும்?",
+                faq_fresh_ans: "எங்கள் குக்கீகள் அறை வெப்பநிலையில் காற்றுரோধী கொள்கலனில் சேமிக்கும் போது 7 நாட்கள் வரை புதியதாக வைக்கப்படுகிறது. நீண்ட புதியதாக, நீங்கள் அவற்றை இரண்டு வாரங்களுக்கு உறைய முடியும்.",
+                faq_dietary: "நீங்கள் குளுதேன் இல்லாத அல்லது வேகன் விருப்பங்களை வழங்குகிறீர்களா?",
+                faq_dietary_ans: "ஆம்! நாங்கள் குளுதேன் இல்லாத மற்றும் வேகன் குக்கீகளின் தேர்வை வழங்குகிறோம். தயவுசெய்து எங்கள் பொருட்கள் பக்கத்தை சோதிக்கவும் அல்லது எங்கள் சிறப்பு உணவு விருப்பங்களுக்கு எங்களைத் தொடர்பு கொள்ளுங்கள்.",
+                faq_return: "உங்கள் திரும்பக் கொடுக்கும் கொள்கை என்ன?",
+                faq_return_ans: "நாங்கள் 100% திருப்தியை உறுதிப்படுத்துகிறோம். நீங்கள் உங்கள் ஆர்டரைப் பற்றி மகிழ்ச்சி இல்லாவிட்டால், நாங்கள் அதை மாற்றுவோம் அல்லது 30 நாட்களுக்குள் முழு பணத்தை திரும்பக் கொடுப்போம்.",
+                faq_international: "நீங்கள் சர்வ தேசீயமாக வழங்குகிறீர்களா?",
+                faq_international_ans: "தற்போது, நாங்கள் உள்ளூர் பகுதியில் மற்றும் தேர்ந்தெடுக்கப்பட்ட அருகிலுள்ள பகுதிகளுக்கு வழங்குகிறோம். சர்வ தேசீய கேள்விக்கு, தயவுசெய்து சிறப்பு ஏற்பாடுகளுக்கு நம்மைத் தொடர்பு கொள்ளுங்கள்.",
+                faq_customize: "நான் என்னுடைய குக்கி ஆர்டரை தனிப்பயனாக்க முடியுமா?",
+                faq_customize_ans: "முற்றிலும்! நாங்கள் சிறப்பாக்கள் விரும்புகிறோம். ব்যক்தিগতকৃত சுவைகள், பொருட்கள் அல்லது பெரிய ஆர்டர்களுக்கு உங்கள் சிறப்பு கோரிக்கைகளுடன் எங்களைத் தொடர்பு கொள்ளுங்கள்.",
+                faq_payment: "நீங்கள் என்ன பணம் செலுத்தும் முறைகளை ஏற்றுக்கொள்கிறீர்கள்?",
+                faq_payment_ans: "நாங்கள் அனைத்து முக்கிய கிரெடிட் கார்டுகள், டிজிটல் ওয়ালெட்கள் மற்றும் வங்கி பரிமாற்றங்களை ஏற்றுக்கொள்கிறோம். பாதுகாப்பதற்கு, அனைத்து பரிவர்தனைகளும் மறைக்கப்பட்டு பாதுகாப்பாக செயல்படுத்தப்படுகிறது.",
+                cart_title: "வாங்கும் வண்டி",
+                cart_empty: "உங்கள் வண்டி காலியாக உள்ளது",
+                cart_clear: "வண்டி தெரிவாக",
+                cart_checkout: "செக்கல்",
+                footer_newsletter: "புதிய சுவைகள் மற்றும் சிறப்பு அফர் பற்றிய புதுப்பிப்புக்கள் பெற இணைந்து கொள்ளுங்கள்!",
+                footer_subscribe: "இணைந்து கொள்ளுங்கள்",
+                footer_copyright: "© 2024 CookieCraft. அனைத்து உரிமைகளும் সংரக்ষிக்கப்பட்டுள்ளன. 🍪",
+                product_add: "வண்டিக்கு சேர்க்க",
+                product_chocolate: "பிரீமிய சாக்லேட் சிப்புகளுடன் கிளாசிக் குக்கி",
+                product_velvet: "கிரீம் சீஸ் சுவையுடன் நேர்த்தியான சிவப்பு மணணீ",
+                product_matcha: "நுண்ணிய பৃथ்வी சுவையுடன் பச்சை தேநீர் மாதா",
+                product_double: "கோகோ மென்மையான তீவ்ர சாக்லேட்",
+                product_oatmeal: "பழிப்பு திராட்சையுடன் ஆரோக்கிய தானியங்கள்",
+                product_peanut: "மென்மையான வேர்க்கடலை விருப்பம்",
+                product_caramel: "கடல் உப்பு முடிவில் மிகுந்த நிறப்பு",
+                product_rainbow: "வெண்ணை இன்பதுடன் வரண்ண சிதறல்",
+                footer_quick: "விரைவு இணைப்புகள்",
+                footer_service: "வாடிக்கையாளர் সেவை",
+                footer_privacy: "தனியுரிமை கொள்கை",
+                footer_terms: "முறைமைகள் மற்றும் நிபந்தனைகள்",
+                footer_shipping: "கப்பல் தகவல்",
+                form_required: "தயவுசெய்து அனைத்து தேவையான புலங்களை நிரப்பவும்.",
+                form_invalid_email: "தயவுசெய்து செல்லுபடியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.",
+                form_success: "உங்கள் செய்திக்கு நன்றி! நாங்கள் விரைவில் உங்களைத் திரும்பத் தொடர்புகொள்வோம்.",
+                alert_subscribe: "இணைந்து கொள்ளுவதற்கு நன்றி!",
+                alert_subscribe_error: "தயவுசெய்து செல்லுபடியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.",
+                alert_checkout: "உங்கள் ஆர்டரிற்கு நன்றி! இது ஒரு டெமோ. உண்மையான பயன்பாட்டில், நீங்கள் பணம் செலுத்துவதற்கு திரும்பச் செல்லுவீர்கள்.",
+                alert_clear_cart: "உங்கள் வண்டியை தெரிவாக்க நீங்கள் உறுதியாக இருக்கிறீர்களா?"
+            },
+            zh: {
+                nav_home: "首页",
+                nav_about: "关于我们",
+                nav_products: "产品",
+                nav_features: "为什么选择我们",
+                nav_testimonials: "评价",
+                nav_gallery: "画廊",
+                nav_faq: "常见问题",
+                nav_contact: "联系我们",
+                hero_title: "新鲜烤制的饼干用爱制作",
+                hero_subtitle: "体验优质原料和专业工艺的完美融合。每个饼干都是用热情和对品质的执着手工制作的。",
+                btn_shop: "立即购物",
+                btn_learn: "了解更多",
+                about_title: "关于我们的饼干故事",
+                about_text1: "欢迎来到CookieCraft，传统与创新在这里相遇。自2015年以来，我们一直致力于使用最优质的原料创造最美味的优质饼干。",
+                about_text2: "我们的使命很简单：为每一口带来喜悦。每个饼干都是用爱手工制作的，每天在我们的工匠面包店新鲜烘焙。",
+                about_text3: "我们相信质量胜于数量、可持续性，并把我们的客户当作家人对待。加入数千名满意的饼干爱好者，他们相信CookieCraft能够为他们的特殊时刻增添色彩。",
+                stat_customers: "满意的顾客",
+                stat_flavors: "饼干口味",
+                stat_experience: "年经验",
+                stat_orders: "订单已送达",
+                products_title: "我们的美味产品",
+                filter_all: "全部",
+                filter_bestseller: "畅销商品",
+                filter_chocolate: "巧克力",
+                filter_classic: "经典",
+                filter_premium: "优质",
+                features_title: "为什么选择CookieCraft",
+                feature_quality: "优质质量",
+                feature_quality_desc: "仅使用来自可信供应商的最优质原料，保证非凡的味道。",
+                feature_handmade: "每日手工制作",
+                feature_handmade_desc: "我们熟练的工匠面包师使用传统方法手工制作每个饼干。",
+                feature_delivery: "快速送达",
+                feature_delivery_desc: "在24小时内将新鲜烤制的饼干送到您的家门口。",
+                feature_price: "经济实惠",
+                feature_price_desc: "优质产品以合理的价格，因为每个人都应该享受美味的饼干。",
+                feature_satisfaction: "100%满意保证",
+                feature_satisfaction_desc: "您的满意度有保障。如果您不满意，我们会使其正确。",
+                feature_eco: "生态友好",
+                feature_eco_desc: "可持续包装和道德采购，为更美好的未来。",
+                testimonials_title: "我们的客户说什么",
+                gallery_title: "饼干画廊",
+                faq_title: "常见问题",
+                contact_title: "联系我们",
+                contact_location: "位置",
+                contact_address: "烘焙街123号\n甜蜜城市,SC 12345\n中国",
+                contact_phone: "电话",
+                contact_phone_hours: "+86 123-4567-8901\n周一至周五：9AM - 6PM\n周六：10AM - 4PM",
+                contact_email: "电子邮件",
+                contact_email_list: "hello@cookiecraft.com\nsupport@cookiecraft.com",
+                contact_hours: "营业时间",
+                contact_hours_list: "周一至周五：9AM - 6PM\n周六：10AM - 4PM\n周日：关闭",
+                form_name: "您的名字",
+                form_email: "您的电子邮件",
+                form_phone: "电话号码",
+                form_message: "信息",
+                btn_send: "发送消息",
+                faq_fresh: "您的饼干能保持多久新鲜？",
+                faq_fresh_ans: "我们的饼干在室温下放在密闭容器中可保持新鲜7天。为了延长新鲜度，您可以将其冷冻长达两周。",
+                faq_dietary: "您提供无麸质或素食选项吗？",
+                faq_dietary_ans: "是的！我们提供无麸质和素食饼干的选择。请查看我们的产品页面或与我们联系，了解我们的特殊饮食选项。",
+                faq_return: "您的退货政策是什么？",
+                faq_return_ans: "我们保证100%满意。如果您对订单不满意，我们将在购买后30天内更换或提供全额退款。",
+                faq_international: "您提供国际配送吗？",
+                faq_international_ans: "目前，我们在当地和选定的附近地区配送。如有国际查询，请直接与我们联系进行特殊安排。",
+                faq_customize: "我可以定制我的饼干订单吗？",
+                faq_customize_ans: "当然可以！我们喜欢定制。请与我们联系，提出您的特殊要求，包括个性化口味、包装或批量订单。",
+                faq_payment: "您接受哪些支付方式？",
+                faq_payment_ans: "我们接受所有主要信用卡、数字钱包和银行转账。为了安全起见，所有交易都经过加密并安全处理。",
+                cart_title: "购物车",
+                cart_empty: "您的购物车是空的",
+                cart_clear: "清空购物车",
+                cart_checkout: "结账",
+                footer_newsletter: "订阅以获取新口味和特殊优惠的更新！",
+                footer_subscribe: "订阅",
+                footer_copyright: "© 2024 CookieCraft。版权所有。🍪",
+                product_add: "加入购物车",
+                product_chocolate: "配有优质巧克力片的经典饼干",
+                product_velvet: "具有奶油芝士风味的优雅红丝绒",
+                product_matcha: "绿茶抹茶，具有微妙的泥土味",
+                product_double: "具有可可的浓郁巧克力风味",
+                product_oatmeal: "全麦燕麦加饱满的葡萄干",
+                product_peanut: "顺滑花生酱的美妙之处",
+                product_caramel: "甜焦糖，配上海盐饰面",
+                product_rainbow: "彩虹撒装饰，香草欢乐",
+                footer_quick: "快速链接",
+                footer_service: "客户服务",
+                footer_privacy: "隐私政策",
+                footer_terms: "条款和条件",
+                footer_shipping: "配送信息",
+                form_required: "请填写所有必填字段。",
+                form_invalid_email: "请输入有效的电子邮件地址。",
+                form_success: "感谢您的消息！我们很快会与您联系。",
+                alert_subscribe: "感谢您的订阅！",
+                alert_subscribe_error: "请输入有效的电子邮件地址。",
+                alert_checkout: "感谢您的订单！这是一个演示。在实际应用中，您将被重定向到支付页面。",
+                alert_clear_cart: "您确定要清空购物车吗？"
+            }
+        };
+
+        // ============================================
+        // LANGUAGE MANAGEMENT
+        // ============================================
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('selectedLanguage', lang);
+            updateLanguageUI(lang);
+            updatePageContent();
+        }
+
+        function updateLanguageUI(lang) {
+            const langToggle = document.getElementById('langToggle');
+            const langOptions = document.querySelectorAll('.lang-option');
+            const langNames = { en: '🇬🇧 EN', ms: '🇲🇾 MS', ta: '🇮🇳 TA', zh: '🇨🇳 ZH' };
+            
+            langToggle.textContent = langNames[lang];
+            langOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.lang === lang) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        function updatePageContent() {
+            const t = translations[currentLanguage];
+            
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const href = link.getAttribute('href').slice(1);
+                const key = `nav_${href}`;
+                if (t[key]) link.textContent = t[key];
+            });
+
+            // Hero
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const h1 = hero.querySelector('h1');
+                const p = hero.querySelector('p');
+                if (h1) h1.textContent = t.hero_title;
+                if (p) p.textContent = t.hero_subtitle;
+            }
+
+            // Buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                if (btn.textContent.includes('Shop')) btn.textContent = t.btn_shop;
+                if (btn.textContent.includes('Learn')) btn.textContent = t.btn_learn;
+                if (btn.textContent.includes('Send')) btn.textContent = t.btn_send;
+                if (btn.textContent.includes('Add')) btn.textContent = t.product_add;
+                if (btn.textContent.includes('Clear')) btn.textContent = t.cart_clear;
+                if (btn.textContent.includes('Checkout')) btn.textContent = t.cart_checkout;
+                if (btn.textContent.includes('Subscribe')) btn.textContent = t.footer_subscribe;
+            });
+
+            // Sections
+            const sections = {
+                'about': 'About Our Cookie Story',
+                'products': 'Our Delicious Products',
+                'features': 'Why Choose CookieCraft',
+                'testimonials': 'What Our Customers Say',
+                'gallery': 'Cookie Gallery',
+                'faq': 'Frequently Asked Questions',
+                'contact': 'Get In Touch'
+            };
+
+            document.querySelectorAll('.section-title').forEach((title, index) => {
+                const keys = ['about_title', 'products_title', 'features_title', 'testimonials_title', 'gallery_title', 'faq_title', 'contact_title'];
+                if (t[keys[index]]) title.textContent = t[keys[index]];
+            });
+
+            // Update contact info
+            const contactItems = document.querySelectorAll('.contact-item h3');
+            if (contactItems[0]) contactItems[0].textContent = `📍 ${t.contact_location}`;
+            if (contactItems[1]) contactItems[1].textContent = `📞 ${t.contact_phone}`;
+            if (contactItems[2]) contactItems[2].textContent = `📧 ${t.contact_email}`;
+            if (contactItems[3]) contactItems[3].textContent = `⏰ ${t.contact_hours}`;
+
+            // Update form labels
+            document.querySelectorAll('.form-group label').forEach((label, index) => {
+                const keys = ['form_name', 'form_email', 'form_phone', 'form_message'];
+                if (label && t[keys[index]]) {
+                    label.textContent = t[keys[index]];
+                }
+            });
+
+            // Update footer
+            const footerSection = document.querySelectorAll('.footer-section');
+            if (footerSection[2]) {
+                const links = footerSection[2].querySelectorAll('a');
+                if (links[0]) links[0].textContent = t.footer_privacy;
+                if (links[1]) links[1].textContent = t.footer_terms;
+                if (links[2]) links[2].textContent = t.footer_shipping;
+            }
+
+            // Update cart title
+            const cartHeader = document.querySelector('.cart-header');
+            if (cartHeader) cartHeader.textContent = t.cart_title + ' ✕';
+        }
+
+        // Language selector event listeners
+        document.getElementById('langToggle').addEventListener('click', () => {
+            document.getElementById('langDropdown').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', () => {
+                changeLanguage(option.dataset.lang);
+                document.getElementById('langDropdown').classList.remove('active');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.language-selector')) {
+                document.getElementById('langDropdown').classList.remove('active');
+            }
+        });
+        
+        const products = [
+            {
+                id: 1,
+                name: "Chocolate Chip Cookie",
+                category: "bestseller,chocolate,classic",
+                price: 4.99,
+                image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=300&fit=crop",
+                description: "Classic cookie with premium chocolate chips",
+                rating: 5
+            },
+            {
+                id: 2,
+                name: "Red Velvet Cookie",
+                category: "premium,classic",
+                price: 5.99,
+                image: "https://bakingamoment.com/wp-content/uploads/2023/12/IMG_0082-red-velvet-chocolate-chip-cookies.jpg",
+                description: "Elegant red velvet with cream cheese flavor",
+                rating: 5
+            },
+            {
+                id: 3,
+                name: "Matcha Cookie",
+                category: "premium",
+                price: 6.99,
+                image: "https://erictriesit.com/wp-content/uploads/2024/12/Brown-butter-matcha-cookies-square-1.jpg",
+                description: "Green tea matcha with subtle earthy taste",
+                rating: 5
+            },
+            {
+                id: 4,
+                name: "Double Chocolate Cookie",
+                category: "bestseller,chocolate",
+                price: 5.49,
+                image: "https://emilylaurae.com/wp-content/uploads/2020/10/double-chocolate-chip-cookies-7.jpg",
+                description: "Intense chocolate flavor with cocoa",
+                rating: 5
+            },
+            {
+                id: 5,
+                name: "Oatmeal Raisin Cookie",
+                category: "classic",
+                price: 4.49,
+                image: "https://evergreenkitchen.ca/wp-content/uploads/2024/04/Single-Serve-Oatmeal-Cookie-Evergreen-Kitchen-1.jpg",
+                description: "Wholesome oats with plump raisins",
+                rating: 5
+            },
+            {
+                id: 6,
+                name: "Peanut Butter Cookie",
+                category: "bestseller,classic",
+                price: 4.99,
+                image: "https://thenovicechefblog.com/wp-content/uploads/2023/11/Chewy-Peanut-Butter-Cookies-Image.jpeg",
+                description: "Smooth peanut butter goodness",
+                rating: 5
+            },
+            {
+                id: 7,
+                name: "Salted Caramel Cookie",
+                category: "premium",
+                price: 6.49,
+                image: "https://grandbaby-cakes.com/wp-content/uploads/2023/04/salted-caramel-chocolate-chip-cookies-recipe.jpg",
+                description: "Sweet caramel with sea salt finish",
+                rating: 5
+            },
+            {
+                id: 8,
+                name: "Rainbow Sprinkle Cookie",
+                category: "bestseller",
+                price: 5.99,
+                image: "https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,w_730/k%2FPhoto%2FRecipes%2F2023-11-the-life-of-the-party-rainbow-sprinkle-cookies%2Fthe-life-of-the-party-rainbow-sprinkle-cookies-134",
+                description: "Colorful sprinkles with vanilla joy",
+                rating: 5
+            }
+
+
+        ];
+
+        // ============================================
+        // CART MANAGEMENT
+        // ============================================
+        let cart = JSON.parse(localStorage.getItem('cookieCart')) || [];
+
+        function saveCart() {
+            localStorage.setItem('cookieCart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            saveCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+        }
+
+        function updateQuantity(productId, quantity) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = Math.max(1, quantity);
+                saveCart();
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            saveCart();
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const clearCartBtn = document.getElementById('clearCartBtn');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                clearCartBtn.style.display = 'none';
+                checkoutBtn.style.display = 'none';
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">RM ${(item.price * item.quantity).toFixed(2)}</div>
+                            <div class="cart-item-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" readonly>
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                                <button class="cart-item-remove" onclick="removeFromCart(${item.id})">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                clearCartBtn.style.display = 'block';
+                checkoutBtn.style.display = 'block';
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = 'RM ' + total.toFixed(2);
+        }
+
+        // ============================================
+        // PRODUCTS RENDERING
+        // ============================================
+        function renderProducts(filter = 'all') {
+            const productsGrid = document.getElementById('productsGrid');
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category.includes(filter));
+            const t = translations[currentLanguage];
+
+            productsGrid.innerHTML = filteredProducts.map(product => {
+                const descKey = `product_${product.name.toLowerCase().replace(/\s+/g, '_')}`;
+                const desc = t[descKey] || product.description;
+
+                return `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-desc">${desc}</div>
+                            <div class="product-rating">
+                                ${'★'.repeat(product.rating)}${'☆'.repeat(5 - product.rating)}
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">RM ${product.price.toFixed(2)}</span>
+                                <button class="btn btn-small btn-primary"
+                                    onclick="addToCart(${product.id})">
+                                    ${t.product_add}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+        }
+
+        // ============================================
+        // FILTER FUNCTIONALITY
+        // ============================================
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderProducts(this.dataset.filter);
+            });
+        });
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        const navLinks = document.querySelectorAll('.nav-link');
+        const hamburger = document.getElementById('hamburger');
+        const navLinksContainer = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinksContainer.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinksContainer.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ============================================
+        // CART SIDEBAR
+        // ============================================
+        const cartIcon = document.getElementById('cartIcon');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartClose = document.getElementById('cartClose');
+
+        cartIcon.addEventListener('click', () => {
+            cartSidebar.classList.toggle('active');
+        });
+
+        cartClose.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+        });
+
+        document.getElementById('clearCartBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                clearCart();
+            }
+        });
+
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            alert('Thank you for your order! This is a demo. In a real application, you would be redirected to payment.');
+            clearCart();
+            cartSidebar.classList.remove('active');
+        });
+
+        // ============================================
+        // TESTIMONIALS CAROUSEL
+        // ============================================
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-card');
+
+        function showTestimonial(index) {
+            testimonials.forEach(card => card.classList.remove('active'));
+            testimonials[index].classList.add('active');
+        }
+
+        document.getElementById('nextTestimonial').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+
+        document.getElementById('prevTestimonial').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+
+        // Auto-slide testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+
+        // ============================================
+        // FAQ ACCORDION
+        // ============================================
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', function() {
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // ============================================
+        // CONTACT FORM
+        // ============================================
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const formMessage = document.getElementById('formMessage');
+
+            if (!name || !email || !message) {
+                formMessage.textContent = 'Please fill in all required fields.';
+                formMessage.className = 'form-message error';
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.className = 'form-message error';
+                return;
+            }
+
+            formMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+            formMessage.className = 'form-message success';
+            this.reset();
+
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000);
+        });
+
+        // ============================================
+        // ANIMATED COUNTERS
+        // ============================================
+        function animateCounter(element) {
+            const target = parseInt(element.dataset.target);
+            const duration = 2000;
+            const steps = 60;
+            const stepValue = target / steps;
+            let current = 0;
+
+            const interval = setInterval(() => {
+                current += stepValue;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(interval);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, duration / steps);
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('stat-number')) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    } else {
+                        entry.target.style.animation = 'slideUp 0.6s ease forwards';
+                        observer.unobserve(entry.target);
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+        document.querySelectorAll('.feature-card, .product-card').forEach(el => observer.observe(el));
+
+        // ============================================
+        // DARK MODE TOGGLE
+        // ============================================
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+        });
+
+        // ============================================
+        // BACK TO TOP BUTTON
+        // ============================================
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ============================================
+        // NEWSLETTER
+        // ============================================
+        document.querySelector('.newsletter-input button').addEventListener('click', () => {
+            const email = document.getElementById('newsletterEmail').value.trim();
+            if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Thank you for subscribing!');
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        // Set initial language
+        updateLanguageUI(currentLanguage);
+        updatePageContent();
+        renderProducts('all');
+        updateCartUI();
+    </script>
+</body>
+</html>

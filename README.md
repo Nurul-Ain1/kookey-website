@@ -66,11 +66,9 @@ That's it — the website will run directly in your browser.
 
 - [ ] Connect the Contact Form to an email service (e.g. Formspree, EmailJS) or a custom backend so customer inquiries are actually received
 - [ ] Add a backend and database to store orders, products, and customer messages
-- [ ] Implement real checkout and payment gateway integration
 - [ ] Add user accounts and order history
 - [ ] Improve accessibility (ARIA labels, keyboard navigation)
 - [ ] Add automated testing for cart and form logic
-- [ ] Deploy the website with a custom domain
 
 ---
 
